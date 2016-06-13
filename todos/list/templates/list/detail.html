@@ -1,0 +1,9 @@
+<h2>{{ todo.title }}</h2>
+<p>{{ todo.created_at }}</p>
+<h5>{{ todo.body }}</h5>
+
+{% if todo.completed %}
+  <p>This todo has been completed! Great!</p>
+{% else %}
+  <p>You need to make sure to get this done!</p>
+{% endif %}
