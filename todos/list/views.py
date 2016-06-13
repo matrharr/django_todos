@@ -28,3 +28,12 @@ def new(request):
   else:
     form = TodoForm()
     return render(request, 'list/new.html', {'form':form})
+
+
+def update(request, pk):
+  todo = get_object_or_404(Todo, pk=pk)
+  form = TodoForm(request.POST or None, instance=todo)
+  if form.is_valid():
+      form.save()
+      return redirect('list/index.html')
+  return render(request, 'list/new.html', {'form':form})
