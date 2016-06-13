@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .forms import TodoForm
+from django.utils import timezone
 
 from .models import Todo
 
@@ -18,9 +19,11 @@ def new(request):
   if request.method == "POST":
     form = TodoForm(request.POST)
     if form.is_valid():
-      formInstance = form.save(commit=False)
-      formInstance.user = request.user
-      formInstance.save()
+      print request.POST
+      title = request.POST.get('todo_title')
+      body = request.POST.get('todo_body')
+      todo_obj = Todo(title=title, body=body, created_at=timezone.now())
+      todo_obj.save()
       return HttpResponse('thanks')
   else:
     form = TodoForm()
