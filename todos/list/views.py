@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from .forms import TodoForm
 
 from .models import Todo
 
@@ -8,7 +9,6 @@ def index(request):
   context = {"todo_list": todo_list}
   return render(request, "list/index.html", context)
 
-
 def detail(request, todo_id):
     todo = get_object_or_404(Todo, pk=todo_id)
     context = {'todo':todo}
@@ -16,3 +16,9 @@ def detail(request, todo_id):
 
 def new(request):
   return render(request, 'list/new.html')
+
+
+def create_todo(request):
+  f = TodoForm(request.POST)
+  f.save()
+  return render(request, 'list/index.html')
