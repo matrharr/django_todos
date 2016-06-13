@@ -15,10 +15,13 @@ def detail(request, todo_id):
     return render(request, 'list/detail.html', context)
 
 def new(request):
-  return render(request, 'list/new.html')
-
-
-def create_todo(request):
-  f = TodoForm(request.POST)
-  f.save()
-  return render(request, 'list/index.html')
+  if request.method == "POST":
+    form = TodoForm(request.POST)
+    if form.is_valid():
+      formInstance = form.save(commit=False)
+      formInstance.user = request.user
+      formInstance.save()
+      return HttpResponse('thanks')
+  else:
+    form = TodoForm()
+    return render(request, 'list/new.html', {'form':form})

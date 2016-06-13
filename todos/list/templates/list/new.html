@@ -2,10 +2,8 @@
 
 
 <h3>Create a New Todo</h3>
-
-<form action="{% url 'create_todo' %}" method='post'>
-  {%  csrf_token %}
-  <input type='text' placeholder='Title' name='title'  />
-  <input type='text' placeholder='Info' name='title'  />
-  <input type='submit' value='Create Todo'>
+<form action="{% url 'new' %}" method='POST'>
+  {% csrf_token %}
+  {{ form }}
+  <input type='submit' value='Submit' />
 </form>
