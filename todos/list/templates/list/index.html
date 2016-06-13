@@ -3,12 +3,10 @@
 {% if todo_list %}
   <ul>
   {%  for todo in todo_list %}
-    <li><a href="/list/{{ todo.id }}/">{{  todo.title }}</a></li>
+    <li><a href="{% url 'detail' todo.id %}">{{  todo.title }}</a></li>
   {% endfor %}
   </ul>
 
 {%  else %}
   <p>No Todos to do</p>
 {%  endif %}
-
-
